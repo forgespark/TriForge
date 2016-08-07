@@ -15,7 +15,20 @@ let connection = Connection()
 let setup = connection.getSetup()
 let iterator = setup.rootsIterator()
 let screen = iterator.data()
-let window = connection.createWindow(parent: screen.root, visual: screen.rootVisual)
+let window = connection.createWindow(
+	parent: screen.root,
+	x: 0,
+	y: 0,
+	width: 150,
+	height: 150,
+	borderWidth: 0,
+	windowClass: .inputOutput,
+	visual: screen.rootVisual,
+	flags: Set<WindowFlag>([
+		.backPixel(screen.blackPixel),
+		.eventMask([EventMask.keyRelease, EventMask.keyPress, EventMask.exposure, EventMask.structureNotify, EventMask.pointerMotion, EventMask.buttonPress, EventMask.buttonRelease])
+	])
+)
 connection.mapWindow(window)
 connection.flush()
 
